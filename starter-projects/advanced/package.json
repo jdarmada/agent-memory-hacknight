@@ -1,0 +1,29 @@
+{
+  "name": "hacknight-advanced",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ADVANCED starter: Mastra agent with episodic, time-decayed memory on Elasticsearch (ES|QL FORK/FUSE/DECAY)",
+  "type": "module",
+  "engines": { "node": ">=20.9.0" },
+  "scripts": {
+    "dev": "mastra dev",
+    "setup": "tsx src/setup-indices.ts",
+    "seed:movies": "tsx src/seed-movies.ts",
+    "seed:nimbus": "tsx src/seed-memories.ts",
+    "ingest:issues": "tsx src/ingest-github-issues.ts",
+    "ingest:markdown": "tsx src/ingest-markdown.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.0",
+    "@elastic/elasticsearch": "^9.0.0",
+    "@mastra/core": "latest",
+    "dotenv": "^16.4.5",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "mastra": "latest",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "@types/node": "^22.0.0"
+  }
+}

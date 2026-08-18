@@ -1,0 +1,12 @@
+[
+  {"title": "Wingspan", "content": "Engine-building game about attracting birds to wildlife preserves. 1-5 players, ~70 minutes, medium weight. Great for families and strategy fans alike.", "genre": "engine-building", "players": "1-5"},
+  {"title": "Azul", "content": "Abstract tile-drafting game about decorating palace walls. 2-4 players, ~40 minutes, light-medium. Simple rules, sharp decisions.", "genre": "abstract", "players": "2-4"},
+  {"title": "Gloomhaven", "content": "Massive cooperative dungeon-crawling campaign with legacy elements. 1-4 players, 90-150 minutes per scenario, heavy. A long-term commitment.", "genre": "co-op campaign", "players": "1-4"},
+  {"title": "Codenames", "content": "Team word-association party game with spymasters giving one-word clues. 4-8+ players, ~15 minutes, light. The go-to party opener.", "genre": "party", "players": "4-8"},
+  {"title": "7 Wonders Duel", "content": "Two-player card-drafting civilization game with three paths to victory. 2 players, ~30 minutes, medium. One of the best head-to-head games.", "genre": "drafting", "players": "2"},
+  {"title": "Pandemic", "content": "Cooperative game where players race to cure four diseases before outbreaks cascade. 2-4 players, ~45 minutes, medium-light. The classic co-op gateway.", "genre": "co-op", "players": "2-4"},
+  {"title": "Terraforming Mars", "content": "Heavy engine-builder about corporations making Mars habitable. 1-5 players, 120+ minutes, heavy. Deep card combos, science-fiction theme.", "genre": "engine-building", "players": "1-5"},
+  {"title": "The Crew", "content": "Cooperative trick-taking game with escalating missions and limited communication. 3-5 players, ~20 minutes, light-medium. Quiet, tense, brilliant.", "genre": "co-op", "players": "3-5"},
+  {"title": "Cascadia", "content": "Tile-laying puzzle about building Pacific Northwest habitats for wildlife. 1-4 players, ~40 minutes, light-medium. Calm, clever, gorgeous.", "genre": "tile-laying", "players": "1-4"},
+  {"title": "Spirit Island", "content": "Complex cooperative game where island spirits repel colonizing invaders. 1-4 players, 90-120 minutes, heavy. The thinking player's co-op.", "genre": "co-op", "players": "1-4"}
+]

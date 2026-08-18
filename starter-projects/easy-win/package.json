@@ -1,0 +1,27 @@
+{
+  "name": "hacknight-easy-win",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EASY WIN starter: a Mastra agent grounded on your data with Elasticsearch as the vector store",
+  "type": "module",
+  "engines": { "node": ">=20.9.0" },
+  "scripts": {
+    "dev": "mastra dev",
+    "ingest": "tsx src/ingest-knowledge.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.0",
+    "@elastic/elasticsearch": "^9.0.0",
+    "@mastra/core": "latest",
+    "@mastra/elasticsearch": "latest",
+    "@mastra/memory": "latest",
+    "dotenv": "^16.4.5",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "mastra": "latest",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "@types/node": "^22.0.0"
+  }
+}
