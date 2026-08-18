@@ -34,7 +34,7 @@ Some presentation guidelines:
 | Criteria | Description |
 |----------|-------------|
 | **Use of Elasticsearch** | Demonstrates meaningful use of Elasticsearch as a memory store and features such as search, aggregations, and vector search. |
-| **Use of Mastra** | Uses Mastra framework to build AI agents and other relevent Mastra features. |
+| **Use of Mastra** | Uses Mastra framework to build AI agents and shows agent traces using Mastra Studio + other relevant Mastra features. |
 | **Creativity** | Presents a unique idea, novel user experience, or interesting technical implementation. |
 | **Usefulness** | Solves a real problem or provides valuable insights from the data. |
 
