@@ -1,14 +1,14 @@
 /**
- * advanced-agent.ts — the ADVANCED tier: episodic, time-aware memory.
+ * advanced-agent.ts - the ADVANCED tier: episodic, time-aware memory.
  *
  * The tools are already built (src/mastra/tools/memory-tools.ts):
- *   remember — stores typed memories (decision/pattern/context/feedback)
- *   recall   — hybrid retrieval: FORK (BM25 + semantic) → FUSE → DECAY,
+ *   remember - stores typed memories (decision/pattern/context/feedback)
+ *   recall   - hybrid retrieval: FORK (BM25 + semantic) → FUSE → DECAY,
  *              so recent memories outrank stale ones.
  *
  * YOUR work is the data (something with a shift or reversal) and the TUNING:
- *   BRIDGE_MEMORY_DECAY_WINDOW      — recency half-life (days)
- *   FUSION_STRATEGY / FUSION_BM25_WEIGHT — keyword vs semantic balance
+ *   BRIDGE_MEMORY_DECAY_WINDOW      - recency half-life (days)
+ *   FUSION_STRATEGY / FUSION_BM25_WEIGHT - keyword vs semantic balance
  *   the ES|QL branches in memory-tools.ts
  *   ...and these instructions (memory discipline is tuning too).
  */

@@ -1,11 +1,11 @@
 /**
- * movie-tools.ts — the two tools behind the three-stage movie demo.
+ * movie-tools.ts - the two tools behind the three-stage movie demo.
  *
- *   search_catalog     — long-term knowledge: hybrid (BM25 + semantic) search
+ *   search_catalog     - long-term knowledge: hybrid (BM25 + semantic) search
  *                        over movie-catalog via ES|QL FORK → FUSE, with
  *                        optional genre boosting and title exclusions.
  *
- *   get_taste_profile  — episodic memory: a DECAY-weighted taste formula over
+ *   get_taste_profile  - episodic memory: a DECAY-weighted taste formula over
  *                        watch-history. Recent, highly-rated watches dominate;
  *                        stale phases fade. Also returns recently watched
  *                        titles so the agent can exclude them.
@@ -15,8 +15,8 @@
  *   taste per genre = SUM(weight)
  *
  * TUNING KNOBS:
- *   TASTE_DECAY_DAYS   — 180 recalls "stale you"; 21 catches the recent kick.
- *   FUSION_STRATEGY / FUSION_BM25_WEIGHT — shared with memory-tools.ts.
+ *   TASTE_DECAY_DAYS   - 180 recalls "stale you"; 21 catches the recent kick.
+ *   FUSION_STRATEGY / FUSION_BM25_WEIGHT - shared with memory-tools.ts.
  */
 import { createTool } from "@mastra/core/tools";
 import { Client } from "@elastic/elasticsearch";
@@ -56,13 +56,13 @@ function rows(result: { columns: { name: string }[]; values: unknown[][] }) {
 }
 
 // ---------------------------------------------------------------------------
-// search_catalog — Stage 1: long-term knowledge (hybrid RAG over the catalog)
+// search_catalog - Stage 1: long-term knowledge (hybrid RAG over the catalog)
 // ---------------------------------------------------------------------------
 export const searchCatalog = createTool({
   id: "search_catalog",
   description:
     "Search the available movie catalog with hybrid (keyword + semantic) search. " +
-    "Use for any recommendation — only movies in the catalog can be recommended. " +
+    "Use for any recommendation - only movies in the catalog can be recommended. " +
     "Optionally boost preferred genres and exclude already-watched titles.",
   inputSchema: z.object({
     query: z.string().describe("What the user is in the mood for, e.g. 'tense sci-fi that makes you think'"),
@@ -123,7 +123,7 @@ ${boost}
 });
 
 // ---------------------------------------------------------------------------
-// get_taste_profile — Stage 2: episodic memory (decay-weighted taste formula)
+// get_taste_profile - Stage 2: episodic memory (decay-weighted taste formula)
 // ---------------------------------------------------------------------------
 export const getTasteProfile = createTool({
   id: "get_taste_profile",

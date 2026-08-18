@@ -1,12 +1,12 @@
 /**
- * setup-indices.ts — one-time setup for the hacknight.
+ * setup-indices.ts - one-time setup for the hacknight.
  *
  * Creates the `agent-memory` index with the same mapping used in the
  * Elastic Search Labs post "Persistent memory for agents: Claude Code on
  * Elasticsearch", minus the Claude Code-specific pieces.
  *
  * On Elasticsearch Serverless, `semantic_text` fields are backed by the
- * Elastic Inference Service (Jina v5) automatically — no inference_id or
+ * Elastic Inference Service (Jina v5) automatically - no inference_id or
  * API key needed. On self-managed 9.3+, create a Jina inference endpoint
  * first and set INFERENCE_ID below.
  *
@@ -30,7 +30,7 @@ const semanticField = INFERENCE_ID
 async function main() {
   const exists = await es.indices.exists({ index: "agent-memory" });
   if (exists) {
-    console.log("agent-memory index already exists — skipping (idempotent).");
+    console.log("agent-memory index already exists - skipping (idempotent).");
     return;
   }
 
@@ -56,7 +56,7 @@ async function main() {
   });
 
   console.log("Created agent-memory index with semantic_text mappings.");
-  console.log("Embeddings are generated server-side at index time — no client embedder needed.");
+  console.log("Embeddings are generated server-side at index time - no client embedder needed.");
 }
 
 main().catch((err) => {

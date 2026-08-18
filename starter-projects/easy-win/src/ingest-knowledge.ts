@@ -1,12 +1,12 @@
 /**
- * ingest-knowledge.ts — EASY WIN ingest: load YOUR data into Elasticsearch
+ * ingest-knowledge.ts - EASY WIN ingest: load YOUR data into Elasticsearch
  * as the agent's long-term memory. No timestamps required.
  *
  * Elasticsearch is the vector store: every document's text is embedded
  * server-side via semantic_text (Jina v5 on Serverless, automatically),
  * so there is no client-side embedding pipeline to configure.
  *
- * Two input modes — pick whichever matches your data:
+ * Two input modes - pick whichever matches your data:
  *
  *   JSON file (array or NDJSON) with at least {title, content}; any extra
  *   string/number fields are kept as filterable metadata:
@@ -106,7 +106,7 @@ async function main() {
   ]);
   for (let i = 0; i < operations.length; i += BATCH * 2) {
     const r = await es.bulk({ operations: operations.slice(i, i + BATCH * 2), refresh: i + BATCH * 2 >= operations.length });
-    if (r.errors) console.error("Batch errors at doc", i / 2, "— first:", JSON.stringify((r.items as any[]).find((x) => x.index?.error)?.index?.error));
+    if (r.errors) console.error("Batch errors at doc", i / 2, "- first:", JSON.stringify((r.items as any[]).find((x) => x.index?.error)?.index?.error));
     console.log(`Indexed ${Math.min((i + BATCH * 2) / 2, docs.length)}/${docs.length}`);
   }
 

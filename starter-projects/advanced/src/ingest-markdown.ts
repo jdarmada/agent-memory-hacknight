@@ -1,11 +1,11 @@
 /**
- * ingest-markdown.ts — ingest a local folder of dated markdown as memories.
+ * ingest-markdown.ts - ingest a local folder of dated markdown as memories.
  *
- * Works for ADR folders, cloned PEPs, changelog collections — anything
+ * Works for ADR folders, cloned PEPs, changelog collections - anything
  * markdown with a discoverable date. Date resolution order:
  *   1. Frontmatter `date:` / `created:` / `Created:` field
  *   2. First `Date: ...` line in the body (PEP headers)
- *   3. File mtime (last resort — warns, since mtime is usually clone time)
+ *   3. File mtime (last resort - warns, since mtime is usually clone time)
  *
  * Good corpora to clone first:
  *   git clone https://github.com/joelparkerhenderson/architecture-decision-record
@@ -117,7 +117,7 @@ async function main() {
 
   if (mtimeFallbacks > 0) {
     console.warn(
-      `WARNING: ${mtimeFallbacks} files had no parseable date and used file mtime — ` +
+      `WARNING: ${mtimeFallbacks} files had no parseable date and used file mtime - ` +
         `if you just cloned the repo, those timestamps are all "today" and decay will be flat for them.`
     );
   }

@@ -1,5 +1,5 @@
 /**
- * ingest-github-issues.ts — ingest a repo's closed issues as memories.
+ * ingest-github-issues.ts - ingest a repo's closed issues as memories.
  *
  * Closed issues are dated decisions ("closing, we went with approach B")
  * full of exact identifiers, so this dataset exercises BOTH the decay
@@ -58,7 +58,7 @@ async function fetchIssues(): Promise<GhIssue[]> {
     if (!res.ok) throw new Error(`GitHub API ${res.status}: ${await res.text()}`);
     const batch = (await res.json()) as GhIssue[];
     if (batch.length === 0) break;
-    // Skip PRs — the issues endpoint includes them.
+    // Skip PRs - the issues endpoint includes them.
     issues.push(...batch.filter((i) => !i.pull_request));
     page++;
   }
@@ -71,7 +71,7 @@ async function main() {
   console.log(`Got ${issues.length} issues. Indexing...`);
 
   const operations = issues.flatMap((issue) => {
-    const created = issue.closed_at ?? issue.created_at; // use resolution date — that's when the "decision" happened
+    const created = issue.closed_at ?? issue.created_at; // use resolution date - that's when the "decision" happened
     const content = [
       `Issue #${issue.number} in ${repo}: ${issue.title}`,
       (issue.body ?? "").slice(0, 4000),
@@ -97,7 +97,7 @@ async function main() {
     ];
   });
 
-  // Batch bulk requests — semantic_text inference makes large bulks slow.
+  // Batch bulk requests - semantic_text inference makes large bulks slow.
   const BATCH = 50; // docs per bulk request
   for (let i = 0; i < operations.length; i += BATCH * 2) {
     const slice = operations.slice(i, i + BATCH * 2);
@@ -109,7 +109,7 @@ async function main() {
   }
 
   console.log(`Done. Timestamps span ${issues.at(-1)?.closed_at ?? "?"} → ${issues[0]?.closed_at ?? "?"}.`);
-  console.log("Reminder: find your REVERSAL — an issue whose resolution superseded an earlier one — before you demo.");
+  console.log("Reminder: find your REVERSAL - an issue whose resolution superseded an earlier one - before you demo.");
 }
 
 main().catch((err) => {

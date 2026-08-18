@@ -1,12 +1,12 @@
 /**
- * memory-agent.ts — reference: Mastra's BUILT-IN memory on Elasticsearch.
+ * memory-agent.ts - reference: Mastra's BUILT-IN memory on Elasticsearch.
  *
  * This is the other shape of "memory" in this project:
  *   easy-win-agent  → knowledge memory (your ingested data, searched as a tool)
  *   memory-agent    → conversation memory (past messages, recalled automatically)
  *
  * Mastra's Memory embeds conversation history into ElasticSearchVector and,
- * on each turn, semantically recalls the most relevant past messages —
+ * on each turn, semantically recalls the most relevant past messages -
  * across threads, for the same resourceId. Nothing to ingest; just chat.
  *
  * Smoke test: tell it your name in one Studio thread, open a NEW thread

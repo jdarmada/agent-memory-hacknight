@@ -1,13 +1,13 @@
 /**
- * easy-agents.ts — the EASY WIN tier.
+ * easy-agents.ts - the EASY WIN tier.
  *
  * Elasticsearch as the agent's long-term memory / vector store.
- * All you do: connect your cluster and ingest your data —
+ * All you do: connect your cluster and ingest your data -
  *   npm run ingest -- --file ./sample-data/board-games.json   (or --dir ./docs)
  *
  * Demo: ask the SAME question to `bare-llm-agent` and `easy-win-agent`.
  * The bare one guesses or hallucinates; the grounded one cites only what
- * is really in your index — and says so when the answer isn't there.
+ * is really in your index - and says so when the answer isn't there.
  */
 import { Agent } from "@mastra/core/agent";
 import { anthropic } from "@ai-sdk/anthropic";
@@ -30,7 +30,7 @@ export const easyWinAgent = new Agent({
 
 Rules:
 - Call search_knowledge for EVERY factual answer or recommendation. The knowledge base is your only source of truth.
-- Only state things supported by the search results. If the knowledge base has nothing relevant, say so plainly — never fill the gap from general knowledge.
+- Only state things supported by the search results. If the knowledge base has nothing relevant, say so plainly - never fill the gap from general knowledge.
 - Cite which entries you used (by title) so the user can verify.`,
   model,
   tools: { searchKnowledge },

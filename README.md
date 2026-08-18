@@ -12,7 +12,7 @@ Build a Mastra agent that can use past context stored in Elasticsearch to make s
 
 ### [Tier 1 - Easy Win](./starter-projects/easy-win) (start here): Elasticsearch as long-term memory
 
-Ground a Mastra agent on **your data**. Elasticsearch is the vector store — embeddings computed server-side, hybrid (keyword + vector) search already wired into the agent as a tool. **Your job: connect your cluster and ingest a dataset** (JSON or a folder of markdown; sample data included). No timestamps needed - any corpus works: games, recipes, docs, products, songs.
+Ground a Mastra agent on **your data**. Elasticsearch is the vector store - embeddings computed server-side, hybrid (keyword + vector) search already wired into the agent as a tool. **Your job: connect your cluster and ingest a dataset** (JSON or a folder of markdown; sample data included). No timestamps needed - any corpus works: games, recipes, docs, products, songs.
 
 Starter: [`starter-projects/easy-win`](./starter-projects/easy-win)
 

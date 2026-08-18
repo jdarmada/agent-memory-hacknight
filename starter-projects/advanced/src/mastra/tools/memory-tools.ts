@@ -1,5 +1,5 @@
 /**
- * memory-tools.ts — Mastra port of `bridge remember` / `bridge recall`
+ * memory-tools.ts - Mastra port of `bridge remember` / `bridge recall`
  * from Elastic's agent-memory project (github.com/jeffvestal/agent-memory).
  *
  * The Claude Code version wires these through a CLI + hooks. In Mastra,
@@ -24,7 +24,7 @@ const MEMORY_INDEX = "agent-memory";
 // Recency half-life in days. Incidents might want 2; architecture decisions 90.
 const DECAY_WINDOW_DAYS = Number(process.env.BRIDGE_MEMORY_DECAY_WINDOW ?? 45);
 // "rrf" = plain FUSE (Reciprocal Rank Fusion, k=60). "linear" = FUSE LINEAR
-// with explicit weights — shift toward BM25 for ID-heavy data, toward
+// with explicit weights - shift toward BM25 for ID-heavy data, toward
 // semantic for prose. (The agent-memory blog uses 0.3/0.7 for graph search.)
 const FUSION_STRATEGY = (process.env.FUSION_STRATEGY ?? "rrf") as "rrf" | "linear";
 const BM25_WEIGHT = Number(process.env.FUSION_BM25_WEIGHT ?? 0.3);
@@ -44,7 +44,7 @@ function esqlEscape(input: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// remember — store a typed memory. semantic_text computes embeddings
+// remember - store a typed memory. semantic_text computes embeddings
 // server-side at index time, so this is a plain index call.
 // ---------------------------------------------------------------------------
 export const remember = createTool({
@@ -90,7 +90,7 @@ export const remember = createTool({
 });
 
 // ---------------------------------------------------------------------------
-// recall — hybrid retrieval, ported directly from lib/memory.sh in the
+// recall - hybrid retrieval, ported directly from lib/memory.sh in the
 // agent-memory repo:
 //   FORK   → parallel BM25 (title/content/tags) + semantic branches
 //   FUSE   → Reciprocal Rank Fusion (k=60 default)

@@ -1,13 +1,13 @@
 /**
- * seed-movies.ts — the movie recommendation demo dataset.
+ * seed-movies.ts - the movie recommendation demo dataset.
  *
  * Creates and seeds two indices:
  *
- *   movie-catalog   — long-term knowledge: ~60 titles with genre, director,
+ *   movie-catalog   - long-term knowledge: ~60 titles with genre, director,
  *                     actors, year, and an original one-line blurb indexed
  *                     as semantic_text (embedded server-side).
  *
- *   watch-history   — episodic memory for user "demo", backdated relative
+ *   watch-history   - episodic memory for user "demo", backdated relative
  *                     to *today*, with a PLANTED TASTE SHIFT:
  *                       • ~6 to ~2 months ago: rom-coms & comedies, rated high
  *                       • last ~3 weeks: hard pivot to sci-fi & thrillers
@@ -104,7 +104,7 @@ const movies: Movie[] = [
   ["Hereditary", 2018, "Horror", "Ari Aster", ["Toni Collette", "Alex Wolff"], "A family inheritance turns out to be much darker than money."],
   ["The Babadook", 2014, "Horror", "Jennifer Kent", ["Essie Davis", "Noah Wiseman"], "A storybook monster feeds on a household's grief."],
   // Animation
-  ["Spider-Man: Into the Spider-Verse", 2018, "Animation", "Peter Ramsey", ["Shameik Moore", "Hailee Steinfeld"], "Anyone can wear the mask — even several anyones at once."],
+  ["Spider-Man: Into the Spider-Verse", 2018, "Animation", "Peter Ramsey", ["Shameik Moore", "Hailee Steinfeld"], "Anyone can wear the mask - even several anyones at once."],
   ["Spirited Away", 2001, "Animation", "Hayao Miyazaki", ["Rumi Hiiragi", "Miyu Irino"], "A girl must work in a spirit bathhouse to free her parents."],
   ["Inside Out", 2015, "Animation", "Pete Docter", ["Amy Poehler", "Phyllis Smith"], "A girl's emotions scramble to steady her through a move."],
   ["Coco", 2017, "Animation", "Lee Unkrich", ["Anthony Gonzalez", "Gael García Bernal"], "A boy crosses into the Land of the Dead to trace his music."],
@@ -113,7 +113,7 @@ const movies: Movie[] = [
   ["My Octopus Teacher", 2020, "Documentary", "Pippa Ehrlich", ["Craig Foster"], "A year of daily dives builds an unlikely friendship."],
 ];
 
-// Watch history for user "demo" — the PLANTED TASTE SHIFT.
+// Watch history for user "demo" - the PLANTED TASTE SHIFT.
 // [title, genre, rating(1-5), daysAgo]
 type Watch = [string, string, number, number];
 const watchHistory: Watch[] = [

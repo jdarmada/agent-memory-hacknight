@@ -1,5 +1,5 @@
 /**
- * seed-memories.ts — the "Nimbus" synthetic decision log.
+ * seed-memories.ts - the "Nimbus" synthetic decision log.
  *
  * Seeds ~12 months of a fictional project's memories with PLANTED REVERSALS,
  * backdated relative to *today* so the decay demo works whenever you run it.
@@ -10,7 +10,7 @@
  *   3. Deploys:    Heroku (~11 months ago)                    → Fly.io (~6 weeks ago)
  *
  * The old decisions are deliberately LONGER and more detailed than the
- * reversals — that's what makes pure semantic recall rank them higher,
+ * reversals - that's what makes pure semantic recall rank them higher,
  * which is the failure the kickoff demo shows.
  *
  * Run: npx tsx src/seed-memories.ts
@@ -54,7 +54,7 @@ const memories: Mem[] = [
   },
   {
     type: "decision",
-    title: "Migrate primary datastore to DynamoDB — Postgres decision superseded",
+    title: "Migrate primary datastore to DynamoDB - Postgres decision superseded",
     content:
       "The multi-region expansion made single-writer Postgres a bottleneck. We are migrating the primary " +
       "datastore to DynamoDB. The March Postgres decision is superseded. New services must use DynamoDB " +
@@ -71,14 +71,14 @@ const memories: Mem[] = [
       "For semantic search across Nimbus docs and tickets we selected OpenAI's text-embedding-ada-002. " +
       "Rationale: best price/quality at evaluation time, simple API, 1536 dimensions fits our index " +
       "budget, and latency from us-east-1 averaged 80ms. We wrote a batching wrapper (lib/embed.ts) " +
-      "that all services must use — do not call the embeddings API directly. Recall@10 on our internal " +
+      "that all services must use - do not call the embeddings API directly. Recall@10 on our internal " +
       "eval set was 0.83, beating the sentence-transformers baseline by 9 points.",
     tags: ["embeddings", "ml", "search", "openai"],
     ageDays: 270,
   },
   {
     type: "decision",
-    title: "Switch embeddings to Jina v5 via Elastic Inference Service — ada-002 superseded",
+    title: "Switch embeddings to Jina v5 via Elastic Inference Service - ada-002 superseded",
     content:
       "Moving to Elasticsearch Serverless gives us Jina v5 embeddings server-side through semantic_text, " +
       "removing the client-side embedding pipeline entirely. The ada-002 decision is superseded; " +
@@ -102,7 +102,7 @@ const memories: Mem[] = [
   },
   {
     type: "decision",
-    title: "Move deployments to Fly.io — Heroku decision superseded",
+    title: "Move deployments to Fly.io - Heroku decision superseded",
     content:
       "Heroku costs crossed $2k/month at scale and we need edge regions for latency. Deployments move to " +
       "Fly.io with per-PR machines replacing review apps. The Heroku decision is superseded; migrate " +
