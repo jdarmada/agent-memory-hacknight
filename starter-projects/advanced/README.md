@@ -72,10 +72,13 @@ Ask all three movie agents the same question - *"Recommend me something to watch
 
 1. **Get data with a shift or reversal** - a moment where the right answer *changed*:
    ```bash
-   npm run seed:nimbus                                   # synthetic decision log, planted reversals (src/seed-memories.ts)
+   npm run seed:nimbus                                   # synthetic engineering decision log, planted reversals (src/seed-memories.ts)
+   npm run seed:sample -- --file ./sample-data/coffee-shop.json   # café ops log: supplier + menu reversals
+   npm run seed:sample -- --file ./sample-data/trip-planner.json  # travel assistant: preference reversals (hostels→hotels, vegetarian now)
    npm run ingest:issues -- --repo owner/name --max 150  # any repo's closed issues (src/ingest-github-issues.ts - also your BYOD template)
    npm run ingest:markdown -- --dir ./corpus --tag adr   # cloned ADRs / PEPs / changelogs (src/ingest-markdown.ts)
    ```
+   The `sample-data/` sets all have **planted reversals** (superseded decisions written *longer and more convincing* than their replacements - that's what makes undecayed recall fail visibly). Copy one as a template for your own domain: each memory is just `{type, title, content, tags, ageDays}`.
    BYOD rule: real historical `created_at` timestamps, and at least one reversal - otherwise decay has nothing to show.
 2. **Break it:** find the question where memory-blind or badly-tuned recall gives the confidently *stale* answer.
 3. **Tune until it's right:**

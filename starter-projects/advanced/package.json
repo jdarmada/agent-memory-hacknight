@@ -10,6 +10,7 @@
     "setup": "tsx src/setup-indices.ts",
     "seed:movies": "tsx src/seed-movies.ts",
     "seed:nimbus": "tsx src/seed-memories.ts",
+    "seed:sample": "tsx src/seed-sample.ts",
     "ingest:issues": "tsx src/ingest-github-issues.ts",
     "ingest:markdown": "tsx src/ingest-markdown.ts"
   },

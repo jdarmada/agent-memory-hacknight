@@ -43,11 +43,19 @@ Raw message history lands in a local `memory.db` SQLite file (Mastra requires a 
    - `ELASTICSEARCH_URL` + `ELASTICSEARCH_API_KEY` - from your Serverless project (Cloud console → your project → *Endpoints & API keys*)
    - `OPENROUTER_API_KEY` - handed out by the organizers
 
-4. **Ingest the sample data** (creates the index on first run - no separate setup step):
+4. **Ingest a sample dataset** (creates the index on first run - no separate setup step):
 
    ```bash
    npm run ingest -- --file ./sample-data/board-games.json
    ```
+
+   Four datasets ship in `sample-data/` - pick whichever you'd rather demo:
+   - `board-games.json` - 10 games (genre, player count, playtime)
+   - `recipes.json` - 18 recipes (cuisine, time, difficulty, diet)
+   - `sf-hikes.json` - 16 Bay Area hikes (region, distance, difficulty, dogs, transit)
+   - `cocktails.json` - 18 cocktails (spirit, style, difficulty, glass)
+
+   To swap datasets, point `KNOWLEDGE_INDEX` in `.env` at a fresh index name (e.g. `recipes-kb`) and re-run ingest - each corpus gets its own index.
 
 5. **Launch Mastra Studio:**
 
