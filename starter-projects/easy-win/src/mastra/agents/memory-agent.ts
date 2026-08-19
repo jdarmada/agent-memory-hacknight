@@ -85,7 +85,7 @@ export const memoryAgent = new Agent({
   model: [
     {
       model: "openrouter/anthropic/claude-sonnet-4.6",
-      modelSettings: { maxOutputTokens: 1024 },
+      modelSettings: { maxOutputTokens: 4096 },
     },
   ],
   memory,
