@@ -11,7 +11,7 @@
  *                        titles so the agent can exclude them.
  *
  * The taste formula (the "ES|QL builds the weighting" idea):
- *   weight = DECAY(watched_at, NOW(), TASTE_DECAY_DAYS days) * rating
+ *   weight = DECAY(watched_at, NOW(), TASTE_DECAY_DAYS in hours) * rating
  *   taste per genre = SUM(weight)
  *
  * TUNING KNOBS:

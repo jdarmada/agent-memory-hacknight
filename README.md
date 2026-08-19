@@ -4,9 +4,11 @@ Build a Mastra agent that can use past context stored in Elasticsearch to make s
 
 ## Setup
 
-1. Sign up for [DevPost](https://devpost.com/) (required to submit and win prizes)
+1. Create an account and register for the hack night on [DevPost](https://ela.st/memory) (required to submit and win prizes)
 
 2. Start an Elasticsearch Serverless [free-trial](https://cloud.elastic.co/serverless-registration?utm_source=github&utm_medium=event&utm_campaign=2026-08-19-hacknight-sf-amer&utm_content=link)
+
+3. Grab your OpenRouter API key from the organizers (one per attendee) - the starter agents use it for the LLM via `OPENROUTER_API_KEY` in `.env`
 
 ## The Challenge - Two Pathways
 
@@ -28,13 +30,14 @@ Project Link: [`starter-projects/advanced`](./starter-projects/advanced)
 Some presentation guidelines:
 1. Submit your project to DevPost before presenting. 
 2. Presentations are 1-2 mins MAX. Show a before/after: the same question answered without memory vs. with it, with the Mastra Studio trace visible.
+3. If you used Mastra's memory primitives (semantic recall / working memory) on Elasticsearch, show them in the trace - that's rubric credit under "Use of Mastra."
 
 ## Judging + Rubric
 
 | Criteria | Description |
 |----------|-------------|
-| **Use of Elasticsearch** | Demonstrates meaningful use of Elasticsearch as a memory store and features such as search, aggregations, and vector search. |
-| **Use of Mastra** | Uses Mastra framework to build AI agents and shows agent traces using Mastra Studio + other relevant Mastra features. |
+| **Use of Elasticsearch** | Demonstrates meaningful use of Elasticsearch as a memory store and features such as search, aggregations, and vector search. Tuning the retrieval itself counts here - decay window, fusion strategy/weights, or the ES\|QL query (`FORK`/`FUSE`/`DECAY`) from the advanced starter - especially when you can show *why* your settings fit your data. |
+| **Use of Mastra** | Uses Mastra framework to build AI agents and shows agent traces using Mastra Studio. Using Mastra's memory primitives (semantic recall, working memory) with Elasticsearch as the backing store counts here - the `memory-agent` in the easy-win starter shows the pattern. |
 | **Creativity** | Presents a unique idea, novel user experience, or interesting technical implementation. |
 | **Usefulness** | Solves a real problem or provides valuable insights from the data. |
 
@@ -59,7 +62,8 @@ Good luck, have fun, and happy hacking!
 - [ElasticSearchVector reference](https://mastra.ai/reference/vectors/elasticsearch) — Mastra docs for the vector store class
 
 ### Mastra docs
-- [Agents](https://mastra.ai/docs/agents/overview) · [Tools](https://mastra.ai/docs/agents/using-tools) · [Memory & semantic recall](https://mastra.ai/docs/memory/overview) · [Vector databases](https://mastra.ai/docs/rag/vector-databases)
+- [Agents](https://mastra.ai/docs/agents/overview) · [Tools](https://mastra.ai/docs/agents/using-tools) · [Vector databases](https://mastra.ai/docs/rag/vector-databases)
+- Memory primitives: [Memory overview](https://mastra.ai/docs/memory/overview) · [Semantic recall](https://mastra.ai/docs/memory/semantic-recall) · [Working memory](https://mastra.ai/docs/memory/working-memory)
 - Mastra Studio launches with `npm run dev` - use it to show your agent traces
 
 ### Elasticsearch docs

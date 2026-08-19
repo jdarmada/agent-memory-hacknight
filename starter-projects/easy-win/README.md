@@ -10,7 +10,12 @@ An LLM on its own is fluent but ungrounded: it doesn't know what's in *your* cat
 2. **The agent searches it - hybrid.** The `search_knowledge` tool (in `src/mastra/tools/knowledge-tools.ts`) runs an ES|QL query with two parallel branches - classic keyword search (BM25) for exact names and IDs, vector/semantic search for meaning and vibes - merged with `FUSE`. So "Gloomhaven" and "a long co-op campaign for two" both find the right entry.
 3. **The agent is disciplined.** `easy-win-agent`'s instructions (in `src/mastra/agents/easy-agents.ts`) make the knowledge base the *only* source of truth: it must search before answering, cite the entries it used, and say "that's not in my knowledge base" instead of guessing. The *model* decides when to call the tool - watch it happen in the Studio trace.
 
-The third registered agent, `memory-agent`, is a reference implementation of Mastra's **built-in** memory (`Memory` + `semanticRecall`) using `ElasticSearchVector` - conversation memory across threads, as opposed to the knowledge-base memory above. Here too, **your cluster computes the embeddings**: conversation messages are embedded via the Inference API (Jina v5, preconfigured on Serverless - see `src/mastra/elastic-embedder.ts`) and stored back in Elasticsearch as vectors. Raw message history lands in a local `memory.db` SQLite file (Mastra requires a storage adapter for that part). Compare both to see the two shapes of "memory."
+The third registered agent, `memory-agent`, is a reference implementation of Mastra's **built-in memory primitives** using `ElasticSearchVector` - conversation memory across threads, as opposed to the knowledge-base memory above. It exercises two primitives (both count toward "Use of Mastra" in the judging rubric):
+
+- **Semantic recall** - past *messages*, embedded and retrieved by meaning. Your cluster computes the embeddings via the Inference API (Jina v5, preconfigured on Serverless - see `src/mastra/elastic-embedder.ts`) and stores them as vectors.
+- **Working memory** - a persistent user *profile* (name, preferences) the agent maintains itself and always has in context. Watch it update in the Studio trace (`updateWorkingMemory`).
+
+Raw message history lands in a local `memory.db` SQLite file (Mastra requires a storage adapter for that part). Compare both agents to see the two shapes of "memory."
 
 ## Setup (5 minutes)
 
@@ -48,6 +53,8 @@ Ask the **same question** to both agents in Studio:
 **The money shot:** ask about something *not* in your data. The bare agent happily answers; the grounded agent says it's not in the knowledge base. Grounding visibly doing work - that's the demo.
 
 Try with the sample data: *"Recommend a cooperative game for 2 players that plays in under an hour"* (should surface Pandemic / The Crew, with citations), then *"What do you know about Monopoly?"* (not in the index - the grounded agent should say so).
+
+**Bonus beat - the memory primitives (rubric credit):** switch to `memory-agent`, tell it *"I'm <name>, I love co-op games but nothing longer than an hour"*, then open a **new thread** and ask *"what should I play tonight?"* It knows who you are from working memory, recalls the earlier conversation semantically - and the Studio trace shows both (`updateWorkingMemory` + the recalled messages). That's Mastra's memory API running on your Elasticsearch cluster.
 
 ## Where to tweak
 

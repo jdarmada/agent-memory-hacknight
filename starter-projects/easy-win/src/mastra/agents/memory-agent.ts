@@ -1,16 +1,21 @@
 /**
- * memory-agent.ts - reference: Mastra's BUILT-IN memory on Elasticsearch.
+ * memory-agent.ts - reference: Mastra's BUILT-IN memory primitives on Elasticsearch.
  *
  * This is the other shape of "memory" in this project:
  *   easy-win-agent  → knowledge memory (your ingested data, searched as a tool)
- *   memory-agent    → conversation memory (past messages, recalled automatically)
+ *   memory-agent    → conversation memory, via TWO Mastra primitives:
  *
- * Mastra's Memory embeds conversation history into ElasticSearchVector and,
- * on each turn, semantically recalls the most relevant past messages -
- * across threads, for the same resourceId. Nothing to ingest; just chat.
+ *   semanticRecall  - embeds conversation history into ElasticSearchVector and,
+ *                     on each turn, recalls the most relevant past MESSAGES -
+ *                     across threads, for the same resourceId.
+ *   workingMemory   - a persistent profile the agent maintains itself: the
+ *                     distilled FACTS (name, preferences) always in context,
+ *                     no retrieval needed. Recall finds moments; the profile
+ *                     remembers conclusions.
  *
- * Smoke test: tell it your name in one Studio thread, open a NEW thread
- * (same resource), and ask "what's my name?"
+ * Smoke test: tell it your name and a preference in one Studio thread, open a
+ * NEW thread (same resource), and ask "what's my name, what do I like?" -
+ * then open the trace to see the updateWorkingMemory call and the recall.
  */
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
@@ -51,6 +56,20 @@ const memory = new Memory({
       topK: 5,
       messageRange: 2,
       scope: "resource", // recall across all threads for the same user
+    },
+    // Working memory: a persistent, agent-maintained profile of the user.
+    // Semantic recall finds relevant PAST MESSAGES; working memory keeps the
+    // distilled FACTS always in context. Resource-scoped by default, so the
+    // profile follows the user across threads. Watch the agent update it in
+    // the Studio trace (updateWorkingMemory tool call).
+    workingMemory: {
+      enabled: true,
+      template: `# User Profile
+- Name:
+- Favorite games / genres:
+- Preferences (player count, session length, complexity):
+- Dislikes / games to avoid:
+`,
     },
   },
 });

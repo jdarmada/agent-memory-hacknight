@@ -13,7 +13,7 @@ Two memory systems live in this project:
 - **`recall`** retrieves with one ES|QL query (see `src/mastra/tools/memory-tools.ts`):
   - **`FORK`** runs two branches in parallel: BM25 keyword search (exact IDs, names) and semantic search (meaning, paraphrase);
   - **`FUSE`** merges them (Reciprocal Rank Fusion, or `FUSE LINEAR` with explicit weights);
-  - **`DECAY`** multiplies the score by recency: `_score * DECAY(created_at, NOW(), N days)` - the further back a memory, the less it counts.
+  - **`DECAY`** multiplies the score by recency: `_score * DECAY(created_at, NOW(), <window>)` - the further back a memory, the less it counts. (The window is a `time_duration`, so the tools convert your day-denominated knobs to hours.)
 - The agent's instructions enforce **memory discipline**: recall before deciding, prefer the most recent when memories conflict, cite what it used.
 
 ### 2. The worked example: the three-stage movie demo
@@ -55,9 +55,11 @@ Ask all three movie agents the same question - *"Recommend me something to watch
    - the instructions in `advanced-agent.ts` - when to recall, how to resolve conflicts.
 4. **Demo:** same question, before and after, trace visible, plus *why* your window and weights fit your domain.
 
+**Bonus (rubric credit under "Use of Mastra"):** combine both memory layers - Mastra's built-in memory primitives (semantic recall + working memory, see the `memory-agent` in `../easy-win`) for the *conversation* layer, your ES|QL `remember`/`recall` tools for the *episodic* layer. One agent that remembers who it's talking to AND what changed over time.
+
 ## Troubleshooting
 
-- **`DECAY(...)` type error** → interval literal (`45 days`), not a string (`"45d"`); if it still fails, swap in the `DATE_DIFF` fallback commented next to each DECAY line.
+- **`DECAY(...)` type error** → the third argument must be a `time_duration` (`1080 hours`), not a `date_period` (`45 days`) - the tools already convert your day-denominated env knobs to hours; keep that pattern if you edit the query. If it still fails, swap in the `DATE_DIFF` fallback commented next to each DECAY line.
 - **`semantic_text` errors on self-managed ES** → create a Jina inference endpoint and set `INFERENCE_ID`; or use Serverless.
 - **Recall empty right after remember** → the tools use `refresh: "wait_for"`; keep it.
 - **Decay changes nothing** → your data has no temporal spread. Seed scripts backdate for you; `ingest:markdown` warns when it falls back to file mtimes.
