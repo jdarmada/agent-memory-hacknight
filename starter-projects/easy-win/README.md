@@ -105,6 +105,12 @@ Try with the sample data: *"Recommend a cooperative game for 2 players that play
 - **The index:** `KNOWLEDGE_INDEX` in `.env` if you want multiple corpora side by side.
 - **The memory embeddings:** on Serverless nothing to configure; on self-managed Elasticsearch set `MEMORY_INFERENCE_ID` in `.env` to a `text_embedding` inference endpoint on your cluster (e.g. `.multilingual-e5-small-elasticsearch`).
 
+## Troubleshooting
+
+- **Studio spinner never resolves (no answer, no error)** → check the terminal running `npm run dev` - it's almost always an OpenRouter 402 (key out of credits; Studio's UI swallows stream errors silently). Flag an organizer for a fresh key.
+- **Agent answers but never cites your data** → the ingest step didn't run against this cluster, or `KNOWLEDGE_INDEX` in `.env` doesn't match the index you ingested into.
+- **"Memory not enabled" notice on an agent** → expected for `bare-llm-agent` and `easy-win-agent` (their memory is the knowledge base, not the conversation); only `memory-agent` persists threads.
+
 ## Done early? Climb.
 
 The **Advanced** starter (`../advanced`) adds the time dimension: episodic memory where recent context outranks stale context via an ES|QL `DECAY` formula - recommendations that know what you did *lately*, decisions that respect what was *superseded*. If your data has timestamps and at least one "the answer changed" moment, that's your next rung.

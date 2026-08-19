@@ -111,6 +111,7 @@ Three routes in, by what your source looks like:
 
 ## Troubleshooting
 
+- **Studio spinner never resolves (no answer, no error)** → check the terminal running `npm run dev` - it's almost always an OpenRouter 402 (key out of credits; Studio's UI swallows stream errors silently). Flag an organizer for a fresh key.
 - **`DECAY(...)` type error** → the third argument must be a `time_duration` (`1080 hours`), not a `date_period` (`45 days`) - the tools already convert your day-denominated env knobs to hours; keep that pattern if you edit the query. If it still fails, swap in the `DATE_DIFF` fallback commented next to each DECAY line.
 - **`semantic_text` errors on self-managed ES** → create a Jina inference endpoint and set `INFERENCE_ID`; or use Serverless.
 - **Recall empty right after remember** → the tools use `refresh: "wait_for"`; keep it.

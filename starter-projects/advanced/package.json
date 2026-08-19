@@ -4,7 +4,9 @@
   "private": true,
   "description": "ADVANCED starter: Mastra agent with episodic, time-decayed memory on Elasticsearch (ES|QL FORK/FUSE/DECAY)",
   "type": "module",
-  "engines": { "node": ">=20.20.0" },
+  "engines": {
+    "node": ">=20.20.0"
+  },
   "scripts": {
     "dev": "mastra dev",
     "setup": "tsx src/setup-indices.ts",
@@ -17,13 +19,14 @@
   "dependencies": {
     "@elastic/elasticsearch": "^9.0.0",
     "@mastra/core": "^1.60.0",
+    "@mastra/observability": "^1.17.1",
     "dotenv": "^16.4.5",
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "mastra": "^1.25.1",
     "tsx": "^4.19.0",
-    "typescript": "^5.8.0",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.8.0"
   }
 }

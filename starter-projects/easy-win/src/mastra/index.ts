@@ -7,9 +7,20 @@
  *                      using Elasticsearch as the vector store
  */
 import { Mastra } from "@mastra/core";
+import { Observability, MastraStorageExporter } from "@mastra/observability";
 import { bareLlmAgent, easyWinAgent } from "./agents/easy-agents";
 import { memoryAgent } from "./agents/memory-agent";
 
 export const mastra = new Mastra({
   agents: { bareLlmAgent, easyWinAgent, memoryAgent },
+  // Records agent traces (LLM turns, tool calls) so they show up in Studio's
+  // Traces view - the demo and the judging rubric both use it.
+  observability: new Observability({
+    configs: {
+      default: {
+        serviceName: "hacknight-easy-win",
+        exporters: [new MastraStorageExporter()],
+      },
+    },
+  }),
 });

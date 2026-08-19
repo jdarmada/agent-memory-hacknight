@@ -32,7 +32,7 @@ Memory discipline:
   model: [
     {
       model: "openrouter/anthropic/claude-sonnet-4.6",
-      modelSettings: { maxOutputTokens: 2048 },
+      modelSettings: { maxOutputTokens: 1024 },
     },
   ],
   tools: { remember, recall },

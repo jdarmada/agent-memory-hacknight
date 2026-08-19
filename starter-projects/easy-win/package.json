@@ -4,7 +4,9 @@
   "private": true,
   "description": "EASY WIN starter: a Mastra agent grounded on your data with Elasticsearch as the vector store",
   "type": "module",
-  "engines": { "node": ">=20.20.0" },
+  "engines": {
+    "node": ">=20.20.0"
+  },
   "scripts": {
     "dev": "mastra dev",
     "ingest": "tsx src/ingest-knowledge.ts"
@@ -16,13 +18,14 @@
     "@mastra/elasticsearch": "^1.3.1",
     "@mastra/libsql": "^1.21.0",
     "@mastra/memory": "^1.27.0",
+    "@mastra/observability": "^1.17.1",
     "dotenv": "^16.4.5",
     "zod": "^3.25.0"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "mastra": "^1.25.1",
     "tsx": "^4.19.0",
-    "typescript": "^5.8.0",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.8.0"
   }
 }
