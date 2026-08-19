@@ -17,7 +17,6 @@ import { Memory } from "@mastra/memory";
 import { ElasticSearchVector } from "@mastra/elasticsearch";
 import { LibSQLStore } from "@mastra/libsql";
 import { Client } from "@elastic/elasticsearch";
-import { anthropic } from "@ai-sdk/anthropic"; // or your provider of choice
 import { createElasticEmbedder } from "../elastic-embedder";
 import "dotenv/config";
 
@@ -62,6 +61,13 @@ export const memoryAgent = new Agent({
   instructions:
     "You are a helpful assistant with memory of past conversations. " +
     "When relevant, use what you remember about the user naturally.",
-  model: anthropic("claude-sonnet-4-6"),
+  // maxOutputTokens capped so OpenRouter's credit pre-authorization doesn't
+  // reject requests on small provisioned keys.
+  model: [
+    {
+      model: "openrouter/anthropic/claude-sonnet-4.6",
+      modelSettings: { maxOutputTokens: 2048 },
+    },
+  ],
   memory,
 });

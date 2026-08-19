@@ -13,7 +13,6 @@
  *   ...and these instructions (memory discipline is tuning too).
  */
 import { Agent } from "@mastra/core/agent";
-import { anthropic } from "@ai-sdk/anthropic";
 import { remember, recall } from "../tools/memory-tools";
 import "dotenv/config";
 
@@ -28,6 +27,13 @@ Memory discipline:
 - When the user makes a decision, states a durable preference, or flags a blocker, call remember with a fitting type (decision, pattern, context, feedback) and useful tags.
 - Cite recalled memories naturally ("Three weeks ago you decided...") rather than dumping raw results.
 - Do not store trivia; store what a future session would need.`,
-  model: anthropic("claude-sonnet-4-6"),
+  // maxOutputTokens capped so OpenRouter's credit pre-authorization doesn't
+  // reject requests on small provisioned keys.
+  model: [
+    {
+      model: "openrouter/anthropic/claude-sonnet-4.6",
+      modelSettings: { maxOutputTokens: 2048 },
+    },
+  ],
   tools: { remember, recall },
 });

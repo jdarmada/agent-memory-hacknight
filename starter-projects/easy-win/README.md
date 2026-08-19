@@ -18,7 +18,7 @@ The third registered agent, `memory-agent`, is a reference implementation of Mas
 
 ```bash
 npm install
-cp .env.example .env      # fill in: Elasticsearch URL + API key, Anthropic key
+cp .env.example .env      # fill in: Elasticsearch URL + API key, OpenRouter key
 npm run ingest -- --file ./sample-data/board-games.json
 npm run dev               # opens Mastra Studio
 ```

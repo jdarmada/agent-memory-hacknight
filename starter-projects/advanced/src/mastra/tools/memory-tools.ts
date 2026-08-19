@@ -135,7 +135,7 @@ FROM ${MEMORY_INDEX} METADATA _id, _score, _index
     | SORT _score DESC | LIMIT 50
 )
 ${fuseClause()}
-| EVAL final_score = _score * DECAY(created_at, NOW(), ${DECAY_WINDOW_DAYS} days)
+| EVAL final_score = _score * DECAY(created_at, NOW(), ${DECAY_WINDOW_DAYS * 24} hours)
 | EVAL display = COALESCE(title, SUBSTRING(content, 1, 80))
 | SORT final_score DESC | LIMIT ${input.limit}
 | KEEP memory_id, type, display, agent, created_at, final_score

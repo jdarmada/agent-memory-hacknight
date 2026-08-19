@@ -146,7 +146,7 @@ export const getTasteProfile = createTool({
     const tasteQuery = `
 FROM ${HISTORY}
 | WHERE user == "${user}"
-| EVAL w = DECAY(watched_at, NOW(), ${TASTE_DECAY_DAYS} days) * rating
+| EVAL w = DECAY(watched_at, NOW(), ${TASTE_DECAY_DAYS * 24} hours) * rating
 | STATS taste = SUM(w) BY genre
 | SORT taste DESC
 | LIMIT 10

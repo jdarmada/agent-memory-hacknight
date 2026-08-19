@@ -26,7 +26,7 @@ The `movie-rec-*` agents show the whole idea on a relatable domain - run them be
 
 ```bash
 npm install
-cp .env.example .env    # Elasticsearch URL + API key, Anthropic key, unique AGENT_ID
+cp .env.example .env    # Elasticsearch URL + API key, OpenRouter key, unique AGENT_ID
 npm run setup           # creates the agent-memory index
 npm run seed:movies     # movie catalog + watch history (run day-of: backdated to today)
 npm run dev             # opens Mastra Studio

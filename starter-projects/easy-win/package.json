@@ -10,7 +10,6 @@
     "ingest": "tsx src/ingest-knowledge.ts"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^2.0.0",
     "@ai-sdk/provider": "^2.0.0",
     "@elastic/elasticsearch": "^9.0.0",
     "@mastra/core": "^1.60.0",

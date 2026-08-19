@@ -16,11 +16,19 @@
  * it recommends rom-coms (stale you). Back to 21 → sci-fi kick (current you).
  */
 import { Agent } from "@mastra/core/agent";
-import { anthropic } from "@ai-sdk/anthropic";
 import { searchCatalog, getTasteProfile } from "../tools/movie-tools";
 import "dotenv/config";
 
-const model = anthropic("claude-sonnet-4-6");
+// Mastra's built-in model router: routes through OpenRouter using the
+// OPENROUTER_API_KEY from .env - no provider SDK needed.
+// maxOutputTokens matters: OpenRouter pre-authorizes the full output budget
+// against your credit balance, so an uncapped request 402s on small keys.
+const model = [
+  {
+    model: "openrouter/anthropic/claude-sonnet-4.6",
+    modelSettings: { maxOutputTokens: 2048 },
+  },
+];
 
 // Stage 0 - bare LLM
 export const movieRecBare = new Agent({
