@@ -76,7 +76,14 @@ Raw message history lands in a local `memory.db` SQLite file (Mastra requires a 
   npm run ingest -- --dir ./my-docs
   ```
 
-Any corpus works: games, recipes, products, songs, internal docs, FAQ. No timestamps needed.
+**Requirements - deliberately minimal for this tier:**
+
+- Each entry needs a `title` and a `content` string; everything else is optional. **No timestamps needed.**
+- `content` should carry the *meaning* - a sentence or three of real description, not just a name. Semantic search matches vibes ("cozy game for two"), and it can only match what's written.
+- Extra fields (`genre`, `cuisine`, `price`...) come along as metadata automatically - the shipped datasets show the shape.
+- Sweet spot is ~10-500 entries. Ten is enough to demo; don't burn hack time ingesting thousands.
+
+**Fast sources that convert in minutes:** an export from your notes app or bookmarks, a `docs/` folder from any repo (use `--dir`), a playlist or watchlist export, any Kaggle CSV converted to `[{title, content, ...}]` with a few lines of scripting, or ask an LLM to generate 20 entries about something you know deeply - synthetic data is fine here, the demo is about *grounding*, not provenance.
 
 ## Your demo (the before/after)
 

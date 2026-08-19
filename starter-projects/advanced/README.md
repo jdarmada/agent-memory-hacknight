@@ -78,8 +78,7 @@ Ask all three movie agents the same question - *"Recommend me something to watch
    npm run ingest:issues -- --repo owner/name --max 150  # any repo's closed issues (src/ingest-github-issues.ts - also your BYOD template)
    npm run ingest:markdown -- --dir ./corpus --tag adr   # cloned ADRs / PEPs / changelogs (src/ingest-markdown.ts)
    ```
-   The `sample-data/` sets all have **planted reversals** (superseded decisions written *longer and more convincing* than their replacements - that's what makes undecayed recall fail visibly). Copy one as a template for your own domain: each memory is just `{type, title, content, tags, ageDays}`.
-   BYOD rule: real historical `created_at` timestamps, and at least one reversal - otherwise decay has nothing to show.
+   The `sample-data/` sets all have **planted reversals** (superseded decisions written *longer and more convincing* than their replacements - that's what makes undecayed recall fail visibly). Copy one as a template for your own domain: each memory is just `{type, title, content, tags, ageDays}`. Bringing outside data? See **Bring your own data** below for the routes and requirements.
 2. **Break it:** find the question where memory-blind or badly-tuned recall gives the confidently *stale* answer.
 3. **Tune until it's right:**
    - `BRIDGE_MEMORY_DECAY_WINDOW` - hours-scale for incidents, weeks for taste, months for architecture decisions;
@@ -87,6 +86,26 @@ Ask all three movie agents the same question - *"Recommend me something to watch
    - the ES|QL itself in `memory-tools.ts` - branch fields, limits, filters, or your own weighting formula (the taste profile in `movie-tools.ts` is a template);
    - the instructions in `advanced-agent.ts` - when to recall, how to resolve conflicts.
 4. **Demo:** same question, before and after, trace visible, plus *why* your window and weights fit your domain.
+
+### Bring your own data
+
+Three routes in, by what your source looks like:
+
+| Your source | Route | Where the timestamp comes from |
+|---|---|---|
+| Anything you can shape into JSON | `npm run seed:sample -- --file ./my-data.json` | `ageDays` per entry (relative to today - decay always has something to bite) |
+| A GitHub repo's closed issues | `npm run ingest:issues -- --repo owner/name --max 150` | real `closed_at` dates from the API |
+| A folder of dated markdown (ADRs, PEPs, changelogs) | `npm run ingest:markdown -- --dir ./corpus --tag adr` | frontmatter `date:`, a `Date:` line, or file mtime (last resort - it warns) |
+
+**Requirements - this tier is stricter than Easy Win:**
+
+1. **Every memory needs a timestamp.** Decay is the whole demo; undated data can't fade. If your source has no real dates, assign `ageDays` offsets yourself via the JSON route.
+2. **Temporal spread measured in months, not days.** With a 45-day decay window, memories from last week all score alike. The shipped datasets span ~330 days - aim for that shape.
+3. **At least one reversal** - a decision, preference, or fact that *changed* ("we picked X" ... months later ... "X is superseded, now Y"). Without one, decay reorders nothing visible.
+4. **Write the stale answer to *deserve* to win.** Give superseded entries longer, richer rationale than their replacements (see `sample-data/*.json`) - undecayed recall then confidently returns the wrong answer, which is your before/after.
+5. Keep `type` one of `decision | pattern | context | feedback`, and use `tags` - they feed the BM25 branch.
+
+**Fast sources:** your team's real ADR folder or changelog, any active repo's closed issues (exact IDs in issue titles also show off the keyword branch), personal decision journals or notes exports, or synthetic data written with an LLM - just keep the timestamps honest to rules 1-3.
 
 **Bonus (rubric credit under "Use of Mastra"):** combine both memory layers - Mastra's built-in memory primitives (semantic recall + working memory, see the `memory-agent` in `../easy-win`) for the *conversation* layer, your ES|QL `remember`/`recall` tools for the *episodic* layer. One agent that remembers who it's talking to AND what changed over time.
 
