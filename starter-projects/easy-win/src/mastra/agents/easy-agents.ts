@@ -18,6 +18,7 @@ const model = anthropic("claude-sonnet-4-6");
 
 // The "before": no tools, no grounding.
 export const bareLlmAgent = new Agent({
+  id: "bare-llm-agent",
   name: "bare-llm-agent",
   instructions: "You are a helpful assistant. Answer from general knowledge, concisely.",
   model,
@@ -25,6 +26,7 @@ export const bareLlmAgent = new Agent({
 
 // The EASY WIN: grounded on YOUR data in Elasticsearch.
 export const easyWinAgent = new Agent({
+  id: "easy-win-agent",
   name: "easy-win-agent",
   instructions: `You are an assistant grounded in a knowledge base.
 

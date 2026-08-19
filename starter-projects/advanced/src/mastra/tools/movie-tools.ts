@@ -82,15 +82,15 @@ export const searchCatalog = createTool({
       })
     ),
   }),
-  execute: async ({ context }) => {
-    const q = esqlEscape(context.query);
+  execute: async (input) => {
+    const q = esqlEscape(input.query);
     const exclude =
-      context.excludeTitles.length > 0
-        ? `| WHERE NOT title IN (${esqlStringList(context.excludeTitles)})`
+      input.excludeTitles.length > 0
+        ? `| WHERE NOT title IN (${esqlStringList(input.excludeTitles)})`
         : "";
     const boost =
-      context.boostGenres.length > 0
-        ? `| EVAL final_score = _score * CASE(genre IN (${esqlStringList(context.boostGenres)}), 1.5, 1.0)`
+      input.boostGenres.length > 0
+        ? `| EVAL final_score = _score * CASE(genre IN (${esqlStringList(input.boostGenres)}), 1.5, 1.0)`
         : `| EVAL final_score = _score`;
 
     const query = `
@@ -105,7 +105,7 @@ FROM ${CATALOG} METADATA _id, _score, _index
 ${fuseClause()}
 ${exclude}
 ${boost}
-| SORT final_score DESC | LIMIT ${context.limit}
+| SORT final_score DESC | LIMIT ${input.limit}
 | KEEP title, year, genre, director, description, final_score
 `.trim();
 
@@ -139,8 +139,8 @@ export const getTasteProfile = createTool({
     tasteByGenre: z.array(z.object({ genre: z.string(), score: z.number() })),
     recentlyWatched: z.array(z.object({ title: z.string(), watched_at: z.string() })),
   }),
-  execute: async ({ context }) => {
-    const user = esqlEscape(context.user);
+  execute: async (input) => {
+    const user = esqlEscape(input.user);
 
     // The formula: recent + loved dominates; old phases fade with DECAY.
     const tasteQuery = `

@@ -10,9 +10,11 @@ An LLM on its own is fluent but ungrounded: it doesn't know what's in *your* cat
 2. **The agent searches it - hybrid.** The `search_knowledge` tool (in `src/mastra/tools/knowledge-tools.ts`) runs an ES|QL query with two parallel branches - classic keyword search (BM25) for exact names and IDs, vector/semantic search for meaning and vibes - merged with `FUSE`. So "Gloomhaven" and "a long co-op campaign for two" both find the right entry.
 3. **The agent is disciplined.** `easy-win-agent`'s instructions (in `src/mastra/agents/easy-agents.ts`) make the knowledge base the *only* source of truth: it must search before answering, cite the entries it used, and say "that's not in my knowledge base" instead of guessing. The *model* decides when to call the tool - watch it happen in the Studio trace.
 
-The third registered agent, `memory-agent`, is a reference implementation of Mastra's **built-in** memory (`Memory` + `semanticRecall`) using `ElasticSearchVector` - conversation memory across threads, as opposed to the knowledge-base memory above. Compare both to see the two shapes of "memory."
+The third registered agent, `memory-agent`, is a reference implementation of Mastra's **built-in** memory (`Memory` + `semanticRecall`) using `ElasticSearchVector` - conversation memory across threads, as opposed to the knowledge-base memory above. Here too, **your cluster computes the embeddings**: conversation messages are embedded via the Inference API (Jina v5, preconfigured on Serverless - see `src/mastra/elastic-embedder.ts`) and stored back in Elasticsearch as vectors. Raw message history lands in a local `memory.db` SQLite file (Mastra requires a storage adapter for that part). Compare both to see the two shapes of "memory."
 
 ## Setup (5 minutes)
+
+**Requires Node 22.22+ (or 20.20+)** - the current LTS is easiest. Older versions install with warnings from Mastra's dependencies.
 
 ```bash
 npm install
@@ -52,6 +54,7 @@ Try with the sample data: *"Recommend a cooperative game for 2 players that play
 - **The search:** field list, limits, and fusion in `knowledge-tools.ts` - it's one readable ES|QL query.
 - **The discipline:** the agent instructions in `easy-agents.ts` - how strictly it refuses, how it cites.
 - **The index:** `KNOWLEDGE_INDEX` in `.env` if you want multiple corpora side by side.
+- **The memory embeddings:** on Serverless nothing to configure; on self-managed Elasticsearch set `MEMORY_INFERENCE_ID` in `.env` to a `text_embedding` inference endpoint on your cluster (e.g. `.multilingual-e5-small-elasticsearch`).
 
 ## Done early? Climb.
 

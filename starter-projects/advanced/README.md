@@ -32,7 +32,7 @@ npm run seed:movies     # movie catalog + watch history (run day-of: backdated t
 npm run dev             # opens Mastra Studio
 ```
 
-**Requires Elasticsearch Serverless or 9.3+** - the `DECAY` function and `FUSE` command are recent ES|QL features. Serverless also gives you automatic embeddings.
+**Requires Elasticsearch Serverless or 9.3+** - the `DECAY` function and `FUSE` command are recent ES|QL features. Serverless also gives you automatic embeddings. **Node 22.22+ (or 20.20+)** - the current LTS is easiest.
 
 ### See it work (5 more minutes)
 

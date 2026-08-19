@@ -24,6 +24,7 @@ const model = anthropic("claude-sonnet-4-6");
 
 // Stage 0 - bare LLM
 export const movieRecBare = new Agent({
+  id: "movie-rec-bare",
   name: "movie-rec-bare",
   instructions:
     "You are a movie recommendation assistant. Recommend 2-3 movies with one line on why. Be warm and concise.",
@@ -32,6 +33,7 @@ export const movieRecBare = new Agent({
 
 // Stage 1 - + long-term knowledge (the catalog)
 export const movieRecCatalog = new Agent({
+  id: "movie-rec-catalog",
   name: "movie-rec-catalog",
   instructions: `You are a movie recommendation assistant for a streaming catalog.
 
@@ -45,6 +47,7 @@ Rules:
 
 // Stage 2 - + episodic memory (taste profile + exclusions)
 export const movieRecPersonal = new Agent({
+  id: "movie-rec-personal",
   name: "movie-rec-personal",
   instructions: `You are a personal movie recommendation assistant for a streaming catalog.
 

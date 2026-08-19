@@ -34,8 +34,8 @@ export const searchKnowledge = createTool({
   outputSchema: z.object({
     results: z.array(z.object({ title: z.string(), content: z.string(), score: z.number() })),
   }),
-  execute: async ({ context }) => {
-    const q = esqlEscape(context.query);
+  execute: async (input) => {
+    const q = esqlEscape(input.query);
     const query = `
 FROM ${INDEX} METADATA _id, _score, _index
 | FORK (
@@ -46,7 +46,7 @@ FROM ${INDEX} METADATA _id, _score, _index
     | SORT _score DESC | LIMIT 50
 )
 | FUSE
-| SORT _score DESC | LIMIT ${context.limit}
+| SORT _score DESC | LIMIT ${input.limit}
 | KEEP title, content, _score
 `.trim();
 

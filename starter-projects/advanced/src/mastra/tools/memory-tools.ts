@@ -61,9 +61,9 @@ export const remember = createTool({
     scope: z.enum(["shared", "private"]).default("shared"),
   }),
   outputSchema: z.object({ memoryId: z.string() }),
-  execute: async ({ context }) => {
+  execute: async (input) => {
     const now = new Date().toISOString();
-    const memoryId = `${AGENT_ID}-${context.type}-${Date.now()}`;
+    const memoryId = `${AGENT_ID}-${input.type}-${Date.now()}`;
 
     await es.index({
       index: MEMORY_INDEX,
@@ -71,16 +71,16 @@ export const remember = createTool({
       document: {
         memory_id: memoryId,
         agent: AGENT_ID,
-        type: context.type,
-        title: context.title,
-        title_semantic: context.title, // embedded server-side
-        content: context.content,
-        content_semantic: context.content, // embedded server-side
-        tags: context.tags,
+        type: input.type,
+        title: input.title,
+        title_semantic: input.title, // embedded server-side
+        content: input.content,
+        content_semantic: input.content, // embedded server-side
+        tags: input.tags,
         source: "mastra",
         created_at: now,
         updated_at: now,
-        access_scope: context.scope === "shared" ? "shared" : `${AGENT_ID}-only`,
+        access_scope: input.scope === "shared" ? "shared" : `${AGENT_ID}-only`,
       },
       refresh: "wait_for", // hacknight-friendly: recallable immediately
     });
@@ -118,8 +118,8 @@ export const recall = createTool({
       })
     ),
   }),
-  execute: async ({ context }) => {
-    const q = esqlEscape(context.query);
+  execute: async (input) => {
+    const q = esqlEscape(input.query);
     const scopeFilter =
       `(access_scope == "shared" OR access_scope == "${AGENT_ID}-only" OR agent == "${AGENT_ID}")`;
 
@@ -137,7 +137,7 @@ FROM ${MEMORY_INDEX} METADATA _id, _score, _index
 ${fuseClause()}
 | EVAL final_score = _score * DECAY(created_at, NOW(), ${DECAY_WINDOW_DAYS} days)
 | EVAL display = COALESCE(title, SUBSTRING(content, 1, 80))
-| SORT final_score DESC | LIMIT ${context.limit}
+| SORT final_score DESC | LIMIT ${input.limit}
 | KEEP memory_id, type, display, agent, created_at, final_score
 `.trim();
 

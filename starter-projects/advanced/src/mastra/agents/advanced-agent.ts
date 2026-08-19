@@ -18,6 +18,7 @@ import { remember, recall } from "../tools/memory-tools";
 import "dotenv/config";
 
 export const advancedMemoryAgent = new Agent({
+  id: "advanced-memory-agent",
   name: "advanced-memory-agent",
   instructions: `You are an assistant with persistent, time-aware memory backed by Elasticsearch.
 
