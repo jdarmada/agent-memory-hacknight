@@ -117,19 +117,29 @@ const movies: Movie[] = [
 // [title, genre, rating(1-5), daysAgo]
 type Watch = [string, string, number, number];
 const watchHistory: Watch[] = [
-  // Old era (~6 to ~2 months ago): rom-com/comedy phase, rated high, HIGH VOLUME
+  // Old era (~6 to ~2 months ago): rom-com/comedy phase, rated high, HIGH VOLUME.
+  // Deliberately DEEP (17 rom-coms) so the 180-day window makes Rom-Com WIN
+  // decisively, not tie - all of it is 60+ days old, so the 21-day window
+  // still sees none of it. That asymmetry is the decay-flip demo.
   ["Notting Hill", "Rom-Com", 5, 180],
+  ["Love Actually", "Rom-Com", 5, 176],
   ["When Harry Met Sally", "Rom-Com", 5, 172],
   ["Crazy Rich Asians", "Rom-Com", 4, 165],
+  ["You've Got Mail", "Rom-Com", 5, 160],
   ["10 Things I Hate About You", "Rom-Com", 5, 155],
+  ["Sleepless in Seattle", "Rom-Com", 5, 150],
   ["The Big Sick", "Rom-Com", 4, 146],
   ["About Time", "Rom-Com", 5, 138],
+  ["The Proposal", "Rom-Com", 5, 133],
   ["Pride & Prejudice", "Rom-Com", 5, 129],
   ["Set It Up", "Rom-Com", 4, 120],
+  ["Bridget Jones's Diary", "Rom-Com", 5, 116],
   ["La La Land", "Rom-Com", 4, 111],
   ["Game Night", "Comedy", 4, 103],
+  ["Always Be My Maybe", "Rom-Com", 5, 99],
   ["Booksmart", "Comedy", 4, 95],
   ["The Grand Budapest Hotel", "Comedy", 5, 88],
+  ["27 Dresses", "Rom-Com", 5, 84],
   ["Palm Springs", "Rom-Com", 5, 80],
   ["Superbad", "Comedy", 3, 72],
   ["Hot Fuzz", "Comedy", 4, 65],
