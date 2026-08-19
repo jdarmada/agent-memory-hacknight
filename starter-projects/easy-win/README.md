@@ -109,7 +109,7 @@ Try with the sample data: *"Recommend a cooperative game for 2 players that play
 
 - **Studio spinner never resolves (no answer, no error)** → check the terminal running `npm run dev` - it's almost always an OpenRouter 402 (key out of credits; Studio's UI swallows stream errors silently). Flag an organizer for a fresh key.
 - **Agent answers but never cites your data** → the ingest step didn't run against this cluster, or `KNOWLEDGE_INDEX` in `.env` doesn't match the index you ingested into.
-- **"Memory not enabled" notice on an agent** → expected for `bare-llm-agent` and `easy-win-agent` (their memory is the knowledge base, not the conversation); only `memory-agent` persists threads.
+- **"Memory not enabled" notice on an agent** → expected for `bare-llm-agent` and `easy-win-agent` (their memory is the knowledge base, not the conversation); only `memory-agent` persists threads. Adding the conversation layer to an agent is bonus rubric credit - `memory-agent` is your worked example.
 
 ## Done early? Climb.
 

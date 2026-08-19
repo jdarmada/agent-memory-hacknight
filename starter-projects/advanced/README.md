@@ -107,7 +107,17 @@ Three routes in, by what your source looks like:
 
 **Fast sources:** your team's real ADR folder or changelog, any active repo's closed issues (exact IDs in issue titles also show off the keyword branch), personal decision journals or notes exports, or synthetic data written with an LLM - just keep the timestamps honest to rules 1-3.
 
-**Bonus (rubric credit under "Use of Mastra"):** combine both memory layers - Mastra's built-in memory primitives (semantic recall + working memory, see the `memory-agent` in `../easy-win`) for the *conversation* layer, your ES|QL `remember`/`recall` tools for the *episodic* layer. One agent that remembers who it's talking to AND what changed over time.
+### Bonus: add the conversation layer (rubric credit under "Use of Mastra")
+
+You may have noticed these agents keep **no chat history** - that's deliberate. Their memory lives in Elasticsearch, not in the conversation. Wiring in Mastra's memory primitives is part of the challenge: combine both layers - Mastra Memory (chat history, working memory, semantic recall) for the *conversation*, your ES|QL `remember`/`recall` tools for the *episodic* record. One agent that remembers who it's talking to AND what changed over time. When it works, you'll see it: threads start persisting in Studio and the "Memory not enabled" notice disappears.
+
+The recipe (add it to `advanced-memory-agent`, ~15 minutes):
+
+1. `npm install @mastra/memory @mastra/libsql`
+2. Give the agent a `memory: new Memory({ storage: new LibSQLStore({ id: "memory-storage", url: "file:./memory.db" }), options: { lastMessages: 10, workingMemory: { enabled: true } } })` - that alone gets you chat history + working memory.
+3. Want semantic recall too? Also `npm install @ai-sdk/provider`, copy `../easy-win/src/mastra/elastic-embedder.ts`, and add `vector` + `embedder` - `../easy-win/src/mastra/agents/memory-agent.ts` is the complete worked example.
+
+Two gotchas: run your before/after demo in a **fresh thread** each time (with conversation memory, the second ask of a question references the first answer instead of re-querying), and leave the `movie-rec-*` agents memory-free so the three-stage comparison stays clean.
 
 ## Troubleshooting
 
