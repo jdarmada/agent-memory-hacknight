@@ -10,6 +10,13 @@ Build a Mastra agent that can use past context stored in Elasticsearch to make s
 
 3. Grab your OpenRouter API key from the organizers (one per attendee) - the starter agents use it for the LLM via `OPENROUTER_API_KEY` in `.env`
 
+4. Clone this repo and pick your tier - each starter README has step-by-step instructions from there:
+
+   ```bash
+   git clone https://github.com/jdarmada/agent-memory-hacknight.git
+   cd agent-memory-hacknight/starter-projects/easy-win    # or starter-projects/advanced
+   ```
+
 ## The Challenge - Two Pathways
 
 ### Tier 1 - Easy Win (start here): Elasticsearch as long-term memory

@@ -24,15 +24,45 @@ The `movie-rec-*` agents show the whole idea on a relatable domain - run them be
 
 ## Setup (5 minutes)
 
-```bash
-npm install
-cp .env.example .env    # Elasticsearch URL + API key, OpenRouter key, unique AGENT_ID
-npm run setup           # creates the agent-memory index
-npm run seed:movies     # movie catalog + watch history (run day-of: backdated to today)
-npm run dev             # opens Mastra Studio
-```
-
 **Requires Elasticsearch Serverless or 9.3+** - the `DECAY` function and `FUSE` command are recent ES|QL features. Serverless also gives you automatic embeddings. **Node 22.22+ (or 20.20+)** - the current LTS is easiest.
+
+1. **Clone the repo** (skip if you already did) and enter this project:
+
+   ```bash
+   git clone https://github.com/jdarmada/agent-memory-hacknight.git
+   cd agent-memory-hacknight/starter-projects/advanced
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure credentials** - copy the template, then edit `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   - `ELASTICSEARCH_URL` + `ELASTICSEARCH_API_KEY` - from your Serverless project (Cloud console → your project → *Endpoints & API keys*)
+   - `OPENROUTER_API_KEY` - handed out by the organizers
+   - `AGENT_ID` - any unique name, e.g. `team-yourname` (namespaces your memories)
+
+4. **Create the memory index and seed the movie demo** (seed day-of: watch history is backdated relative to today):
+
+   ```bash
+   npm run setup
+   npm run seed:movies
+   ```
+
+5. **Launch Mastra Studio:**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open http://localhost:4111 - you'll see `advanced-memory-agent` and the three `movie-rec-*` agents.
 
 ### See it work (5 more minutes)
 
@@ -42,9 +72,9 @@ Ask all three movie agents the same question - *"Recommend me something to watch
 
 1. **Get data with a shift or reversal** - a moment where the right answer *changed*:
    ```bash
-   npm run seed:nimbus                                   # synthetic decision log, planted reversals
-   npm run ingest:issues -- --repo owner/name --max 150  # any repo's closed issues (also your BYOD template)
-   npm run ingest:markdown -- --dir ./corpus --tag adr   # cloned ADRs / PEPs / changelogs
+   npm run seed:nimbus                                   # synthetic decision log, planted reversals (src/seed-memories.ts)
+   npm run ingest:issues -- --repo owner/name --max 150  # any repo's closed issues (src/ingest-github-issues.ts - also your BYOD template)
+   npm run ingest:markdown -- --dir ./corpus --tag adr   # cloned ADRs / PEPs / changelogs (src/ingest-markdown.ts)
    ```
    BYOD rule: real historical `created_at` timestamps, and at least one reversal - otherwise decay has nothing to show.
 2. **Break it:** find the question where memory-blind or badly-tuned recall gives the confidently *stale* answer.

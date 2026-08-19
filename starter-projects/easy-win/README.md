@@ -21,14 +21,41 @@ Raw message history lands in a local `memory.db` SQLite file (Mastra requires a 
 
 **Requires Node 22.22+ (or 20.20+)** - the current LTS is easiest. Older versions install with warnings from Mastra's dependencies.
 
-```bash
-npm install
-cp .env.example .env      # fill in: Elasticsearch URL + API key, OpenRouter key
-npm run ingest -- --file ./sample-data/board-games.json
-npm run dev               # opens Mastra Studio
-```
+1. **Clone the repo** (skip if you already did) and enter this project:
 
-That's it - no separate index-creation step; the ingest script creates the index on first run.
+   ```bash
+   git clone https://github.com/jdarmada/agent-memory-hacknight.git
+   cd agent-memory-hacknight/starter-projects/easy-win
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure credentials** - copy the template, then edit `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   - `ELASTICSEARCH_URL` + `ELASTICSEARCH_API_KEY` - from your Serverless project (Cloud console → your project → *Endpoints & API keys*)
+   - `OPENROUTER_API_KEY` - handed out by the organizers
+
+4. **Ingest the sample data** (creates the index on first run - no separate setup step):
+
+   ```bash
+   npm run ingest -- --file ./sample-data/board-games.json
+   ```
+
+5. **Launch Mastra Studio:**
+
+   ```bash
+   npm run dev
+   ```
+
+   Open http://localhost:4111, pick an agent (`bare-llm-agent`, `easy-win-agent`, or `memory-agent`), and chat.
 
 ### Bring your own data
 
